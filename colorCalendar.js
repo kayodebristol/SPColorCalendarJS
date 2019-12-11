@@ -1,23 +1,16 @@
-
 function WaitForCalendarToLoad() {  
 	LoadSodByKey("SP.UI.ApplicationPages.Calendar.js", function(){window.setTimeout(Start, 50);});
 }
-
 function Start(){
-
 	ColorCalendar(); 
 	var _onItemsSucceed = SP.UI.ApplicationPages.CalendarStateHandler.prototype.onItemsSucceed; 
 	SP.UI.ApplicationPages.CalendarStateHandler.prototype.onItemsSucceed = function($p0, $p1){
 		_onItemsSucceed.call(this, $p0, $p1); 
-		
+
 		ColorCalendar();
 	}
-
 }
-
-
 function ColorCalendar(){
-		
         if(jQuery('a:contains(' + SEPARATOR + ')') != null)
         {             
 			jQuery('a:contains(' + SEPARATOR + ')').each(function (i) {
@@ -38,29 +31,23 @@ function ColorCalendar(){
 				
 			});      
 		}  
-		 
 }   
-
 function GetActualText(originalText) {     
 	var parts = originalText.split(SEPARATOR);
-	return parts[0] + parts[1];   
+	return parts[0] ;   
 }
-
-function GetLink(linkText) {     
-	var parts = linkText.split(SEPARATOR);
-	return parts[5];   
-}
-
 function GetBGColor(originalText) {
+	var parts = originalText.split(SEPARATOR);
+	return parts[2];   
+}
+function GetFontColor(originalText){
 	var parts = originalText.split(SEPARATOR);
 	return parts[3];   
 }
-
-function GetFontColor(originalText){
-	var parts = originalText.split(SEPARATOR);
+function GetLink(linkText) {     
+	var parts = linkText.split(SEPARATOR);
 	return parts[4];   
 }
-
 var SEPARATOR = "|||"; 	
 jQuery('.ms-acal-item').css('display', 'none');
 _spBodyOnLoadFunctionNames.push('WaitForCalendarToLoad');
